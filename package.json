@@ -42,6 +42,27 @@
         "description": "The imperative REST API in vanilla JS — the 4th corner of the matrix.",
         "tags": ["api", "service", "imperative", "javascript", "lab"],
         "path": "apps/rest-api-imperative-vanilla"
+      },
+      {
+        "value": "spa",
+        "title": "React SPA — client-side rendering (lab)",
+        "description": "React SPA: multi-page routing, StoneLink navigation, CSR. Same pages as ssr/ssg.",
+        "tags": ["react", "frontend", "spa", "csr", "lab"],
+        "path": "apps/spa"
+      },
+      {
+        "value": "ssr",
+        "title": "React SSR — server-side rendering (lab)",
+        "description": "React SSR with client hydration (isomorphic). Same pages as spa/ssg.",
+        "tags": ["react", "frontend", "ssr", "lab"],
+        "path": "apps/ssr"
+      },
+      {
+        "value": "ssg",
+        "title": "React SSG — static site generation (lab)",
+        "description": "React SSG: routes pre-rendered to static HTML + client hydration. Same pages as spa/ssr.",
+        "tags": ["react", "frontend", "ssg", "static", "lab"],
+        "path": "apps/ssg"
       }
     ]
   }

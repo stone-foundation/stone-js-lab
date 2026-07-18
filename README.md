@@ -29,13 +29,22 @@ stage-3 decorators are preserved — no second set of sources to maintain.
 All four expose the exact same endpoints: `GET /tasks`, `GET /tasks/:id(\d+)`, `POST /tasks`,
 `POST /tasks/:id/toggle`, `DELETE /tasks/:id`.
 
+### The React app, three ways — one codebase, three rendering strategies
+
+The same two pages (`HomePage`, `AboutPage`) and the same `WelcomeService` are rendered three
+ways. Only the adapters and the pinned `rendering` in `stone.config.mjs` differ — proof that
+Stone.js lets you "build once, render anywhere".
+
+| App | Proves | Status |
+|---|---|---|
+| `apps/spa` | React SPA: multi-page routing, `StoneLink` navigation, client-side rendering | ✅ builds (Mode CSR) |
+| `apps/ssr` | Server-side rendering with client hydration (isomorphic) | ✅ builds & serves rendered HTML |
+| `apps/ssg` | Static site generation — routes pre-rendered to static HTML + hydration | ✅ builds & pre-renders `/` and `/about` |
+
 ### Coming next
 
 | App | Proves | Status |
 |---|---|---|
-| `apps/spa` | Browser SPA: client routing, `StoneLink`, hooks, View Transitions, scroll restoration | planned |
-| `apps/ssr` | Server-side rendering with hydration (React + use-view) | planned |
-| `apps/ssg` | Static site generation | planned |
 | `apps/security-dashboard` | Live dashboard of security & runtime metrics via `@stone-js/telemetry` | planned |
 
 Each app is added incrementally and validated by running it — see the checklist in each app's README.
