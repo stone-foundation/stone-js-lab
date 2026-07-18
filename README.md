@@ -46,11 +46,19 @@ same pages, same service, only the wiring differs.
 
 All six build with `stone build`; the SSR/SSG outputs are verified to contain real rendered markup.
 
-### Coming next
+### Observability — `apps/security-dashboard`
 
-| App | Proves | Status |
-|---|---|---|
-| `apps/security-dashboard` | Live dashboard of security & runtime metrics via `@stone-js/telemetry` | planned |
+A live **security & runtime metrics dashboard** that consumes `@stone-js/telemetry`. The telemetry
+middleware spans every request; a shared in-memory exporter (registered at blueprint scope)
+aggregates across requests — the idiomatic place for app-lifetime state, since each request gets a
+fresh ephemeral container. Shows total/ok/error requests, error rate, avg/p95 latency, per-event
+counts, and security events (login success/failure) with a live login form. `✅ builds & runs`
+(verified: metrics aggregate correctly across requests, including error rate from `/boom`).
+
+- `GET /` — the live HTML dashboard (auto-refresh)
+- `GET /api/metrics` — the aggregated snapshot as JSON
+- `POST /login` — demo auth emitting security telemetry (`admin` / `stone`)
+- `GET /boom` — a deliberate failure, to watch the error rate rise
 
 Each app is added incrementally and validated by running it — see the checklist in each app's README.
 

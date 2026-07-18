@@ -84,6 +84,13 @@
         "description": "The SSG app built with the imperative define* API. 1:1 with apps/ssg.",
         "tags": ["react", "frontend", "ssg", "static", "imperative", "lab"],
         "path": "apps/ssg-imperative"
+      },
+      {
+        "value": "security-dashboard",
+        "title": "Security & runtime metrics dashboard (lab)",
+        "description": "Consumes @stone-js/telemetry: spans every request, aggregates in a shared exporter, renders a live HTML dashboard + JSON metrics API.",
+        "tags": ["telemetry", "observability", "security", "dashboard", "service", "lab"],
+        "path": "apps/security-dashboard"
       }
     ]
   }
