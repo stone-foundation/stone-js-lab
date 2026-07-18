@@ -35,11 +35,16 @@ The same two pages (`HomePage`, `AboutPage`) and the same `WelcomeService` are r
 ways. Only the adapters and the pinned `rendering` in `stone.config.mjs` differ — proof that
 Stone.js lets you "build once, render anywhere".
 
-| App | Proves | Status |
-|---|---|---|
-| `apps/spa` | React SPA: multi-page routing, `StoneLink` navigation, client-side rendering | ✅ builds (Mode CSR) |
-| `apps/ssr` | Server-side rendering with client hydration (isomorphic) | ✅ builds & serves rendered HTML |
-| `apps/ssg` | Static site generation — routes pre-rendered to static HTML + hydration | ✅ builds & pre-renders `/` and `/about` |
+Each strategy also comes in **declarative** (decorators) and **imperative** (`define*`) form —
+same pages, same service, only the wiring differs.
+
+| Strategy | Declarative | Imperative | Proves |
+|---|---|---|---|
+| SPA (CSR) | `apps/spa` ✅ | `apps/spa-imperative` ✅ | multi-page routing, `StoneLink`, client-side rendering |
+| SSR | `apps/ssr` ✅ | `apps/ssr-imperative` ✅ | server-rendered HTML + client hydration (isomorphic) |
+| SSG | `apps/ssg` ✅ | `apps/ssg-imperative` ✅ | routes pre-rendered to static HTML + hydration |
+
+All six build with `stone build`; the SSR/SSG outputs are verified to contain real rendered markup.
 
 ### Coming next
 

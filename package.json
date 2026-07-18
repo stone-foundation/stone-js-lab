@@ -63,6 +63,27 @@
         "description": "React SSG: routes pre-rendered to static HTML + client hydration. Same pages as spa/ssr.",
         "tags": ["react", "frontend", "ssg", "static", "lab"],
         "path": "apps/ssg"
+      },
+      {
+        "value": "spa-imperative",
+        "title": "React SPA — CSR, imperative (lab)",
+        "description": "The SPA built with the imperative define* API instead of decorators. 1:1 with apps/spa.",
+        "tags": ["react", "frontend", "spa", "csr", "imperative", "lab"],
+        "path": "apps/spa-imperative"
+      },
+      {
+        "value": "ssr-imperative",
+        "title": "React SSR — imperative (lab)",
+        "description": "The SSR app built with the imperative define* API. 1:1 with apps/ssr.",
+        "tags": ["react", "frontend", "ssr", "imperative", "lab"],
+        "path": "apps/ssr-imperative"
+      },
+      {
+        "value": "ssg-imperative",
+        "title": "React SSG — imperative (lab)",
+        "description": "The SSG app built with the imperative define* API. 1:1 with apps/ssg.",
+        "tags": ["react", "frontend", "ssg", "static", "imperative", "lab"],
+        "path": "apps/ssg-imperative"
       }
     ]
   }
