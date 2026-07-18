@@ -55,10 +55,9 @@ export class MetricsStore {
   record (record: TelemetryRecord): void {
     if (record.kind === 'span' && record.name === 'stone.event') {
       this.totalRequests++
-      // The kernel turns handler errors into responses (it does not re-throw), so the span
-      // status stays 'ok'; treat an HTTP status >= 400 as an error too for an accurate rate.
-      const statusCode = Number(record.attributes.statusCode ?? 0)
-      if (record.status === 'error' || statusCode >= 400) { this.error++ } else { this.ok++ }
+      // The telemetry middleware already applies the OpenTelemetry convention (thrown error or
+      // 5xx → status 'error'; 4xx stays 'ok'), so the span status is the single source of truth.
+      if (record.status === 'error') { this.error++ } else { this.ok++ }
       if (typeof record.durationMs === 'number') { this.latencies.push(record.durationMs) }
       const type = String(record.attributes.type ?? 'unknown')
       this.perType[type] = (this.perType[type] ?? 0) + 1
