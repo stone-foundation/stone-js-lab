@@ -17,14 +17,31 @@
     "starters": [
       {
         "value": "rest-api",
-        "title": "REST API (lab)",
-        "description": "Real REST API: routing, regex params, JSON responses, 404s.",
-        "tags": [
-          "api",
-          "service",
-          "lab"
-        ],
+        "title": "REST API — declarative, TypeScript (lab)",
+        "description": "Real REST API: routing, regex params, JSON responses, 404s. Decorators + TS.",
+        "tags": ["api", "service", "declarative", "typescript", "lab"],
         "path": "apps/rest-api"
+      },
+      {
+        "value": "rest-api-vanilla",
+        "title": "REST API — declarative, JavaScript (lab)",
+        "description": "The same REST API in vanilla JS (decorators preserved, types stripped).",
+        "tags": ["api", "service", "declarative", "javascript", "lab"],
+        "path": "apps/rest-api-vanilla"
+      },
+      {
+        "value": "rest-api-imperative",
+        "title": "REST API — imperative, TypeScript (lab)",
+        "description": "The same REST API with the define* meta-module API instead of decorators.",
+        "tags": ["api", "service", "imperative", "typescript", "lab"],
+        "path": "apps/rest-api-imperative"
+      },
+      {
+        "value": "rest-api-imperative-vanilla",
+        "title": "REST API — imperative, JavaScript (lab)",
+        "description": "The imperative REST API in vanilla JS — the 4th corner of the matrix.",
+        "tags": ["api", "service", "imperative", "javascript", "lab"],
+        "path": "apps/rest-api-imperative-vanilla"
       }
     ]
   }

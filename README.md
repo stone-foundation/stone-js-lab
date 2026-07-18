@@ -12,9 +12,27 @@ capability lands here as a runnable case.
 
 Each app lives under `apps/<name>` and is a self-contained Stone.js project (`npm install && npm run dev`).
 
+### The REST API, four ways — 1:1 proof that Stone.js is TS **and** JS, declarative **and** imperative
+
+The same task REST API is provided in all four corners of the paradigm × language matrix. The
+domain logic (`TaskService`) is identical; only the wiring differs. The JavaScript variants are
+**derived** from the TypeScript ones (`stone init --typing vanilla`): types are stripped while
+stage-3 decorators are preserved — no second set of sources to maintain.
+
+| App | Paradigm | Language | Status |
+|---|---|---|---|
+| `apps/rest-api` | Declarative (decorators) | TypeScript | ✅ builds, runs, unit + integration tests |
+| `apps/rest-api-vanilla` | Declarative (decorators) | JavaScript | ✅ builds & runs (derived) |
+| `apps/rest-api-imperative` | Imperative (`define*`) | TypeScript | ✅ builds & runs |
+| `apps/rest-api-imperative-vanilla` | Imperative (`define*`) | JavaScript | ✅ builds & runs (derived) |
+
+All four expose the exact same endpoints: `GET /tasks`, `GET /tasks/:id(\d+)`, `POST /tasks`,
+`POST /tasks/:id/toggle`, `DELETE /tasks/:id`.
+
+### Coming next
+
 | App | Proves | Status |
 |---|---|---|
-| `apps/rest-api` | HTTP API: routing, regex params, JSON responses, 404s | ✅ builds & runs |
 | `apps/spa` | Browser SPA: client routing, `StoneLink`, hooks, View Transitions, scroll restoration | planned |
 | `apps/ssr` | Server-side rendering with hydration (React + use-view) | planned |
 | `apps/ssg` | Static site generation | planned |
