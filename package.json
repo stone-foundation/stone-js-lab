@@ -6,8 +6,26 @@
   "author": "Mr. Stone <evensstone@gmail.com>",
   "license": "MIT",
   "type": "module",
-  "keywords": ["Stone.js", "examples", "validation", "showcase", "lab"],
+  "keywords": [
+    "Stone.js",
+    "examples",
+    "validation",
+    "showcase",
+    "lab"
+  ],
   "stone": {
-    "starters": []
+    "starters": [
+      {
+        "value": "rest-api",
+        "title": "REST API (lab)",
+        "description": "Real REST API: routing, regex params, JSON responses, 404s.",
+        "tags": [
+          "api",
+          "service",
+          "lab"
+        ],
+        "path": "apps/rest-api"
+      }
+    ]
   }
 }

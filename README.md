@@ -14,7 +14,7 @@ Each app lives under `apps/<name>` and is a self-contained Stone.js project (`np
 
 | App | Proves | Status |
 |---|---|---|
-| `apps/rest-api` | HTTP API: routing, middleware, validation, error handling, DoS guards | planned |
+| `apps/rest-api` | HTTP API: routing, regex params, JSON responses, 404s | ✅ builds & runs |
 | `apps/spa` | Browser SPA: client routing, `StoneLink`, hooks, View Transitions, scroll restoration | planned |
 | `apps/ssr` | Server-side rendering with hydration (React + use-view) | planned |
 | `apps/ssg` | Static site generation | planned |
