@@ -1,38 +1,30 @@
 import { ILogger } from '@stone-js/core'
+import { TaskService, Task } from './TaskService'
 import { Delete, EventHandler, Get, Post } from '@stone-js/router'
-import { IncomingHttpEvent, JsonHttpResponse, NotFoundError } from '@stone-js/http-core'
+import { IncomingHttpEvent, JsonHttpResponse } from '@stone-js/http-core'
 
 /**
- * A task record.
- */
-export interface Task {
-  id: number
-  title: string
-  done: boolean
-}
-
-/**
- * Tasks REST controller.
+ * Tasks REST controller — a thin routing adapter over {@link TaskService}.
  *
- * `@EventHandler('/tasks')` groups the routes under `/tasks`; each method is a route. This
- * single controller exercises: GET collection, GET one with a regex path param, POST with a
- * parsed JSON body, PATCH-like toggle, DELETE with a 204, and a 404 via a thrown HttpError.
+ * `@EventHandler('/tasks')` groups the routes; each method is a route. It exercises: GET
+ * collection, GET one with a regex path param, POST with a parsed JSON body, a toggle, and a
+ * DELETE returning 204.
  *
- * Note (0.8.0): route params are now raw strings (no implicit numeric coercion), so numeric
- * ids are parsed explicitly with `Number(...)` — exactly the real-world behaviour the lab
- * exists to confirm.
+ * The domain logic lives in TaskService (unit-tested); routing/dispatch is integration-tested.
+ * Route params are raw strings in 0.8.0 (no implicit numeric coercion), so ids are parsed with
+ * `Number(...)`.
  */
 @EventHandler('/tasks', { name: 'tasks' })
 export class TasksController {
   private readonly logger: ILogger
-  private tasks: Task[] = [{ id: 1, title: 'Try Stone.js', done: false }]
-  private sequence = 1
+  private readonly tasks: TaskService
 
   /**
    * @param dependencies - Auto-wired services.
    */
-  constructor ({ logger }: { logger: ILogger }) {
+  constructor ({ logger, tasks }: { logger: ILogger, tasks: TaskService }) {
     this.logger = logger
+    this.tasks = tasks
   }
 
   /**
@@ -41,7 +33,7 @@ export class TasksController {
   @Get('/', { name: 'list' })
   @JsonHttpResponse(200)
   list (): Task[] {
-    return this.tasks
+    return this.tasks.list()
   }
 
   /**
@@ -50,7 +42,7 @@ export class TasksController {
   @Get('/:id(\\d+)', { name: 'show' })
   @JsonHttpResponse(200)
   show (event: IncomingHttpEvent): Task {
-    return this.find(Number(event.get<string>('id', '0')))
+    return this.tasks.find(Number(event.get<string>('id', '0')))
   }
 
   /**
@@ -59,8 +51,7 @@ export class TasksController {
   @Post('/', { name: 'create' })
   @JsonHttpResponse(201)
   create (event: IncomingHttpEvent): Task {
-    const task: Task = { id: ++this.sequence, title: event.get<string>('title', 'Untitled'), done: false }
-    this.tasks.push(task)
+    const task = this.tasks.create(event.get<string>('title', 'Untitled'))
     this.logger.info(`Created task #${task.id}`)
     return task
   }
@@ -71,9 +62,7 @@ export class TasksController {
   @Post('/:id(\\d+)/toggle', { name: 'toggle' })
   @JsonHttpResponse(200)
   toggle (event: IncomingHttpEvent): Task {
-    const task = this.find(Number(event.get<string>('id', '0')))
-    task.done = !task.done
-    return task
+    return this.tasks.toggle(Number(event.get<string>('id', '0')))
   }
 
   /**
@@ -82,17 +71,6 @@ export class TasksController {
   @Delete('/:id(\\d+)', { name: 'remove' })
   @JsonHttpResponse(204)
   remove (event: IncomingHttpEvent): void {
-    this.tasks = this.tasks.filter((task) => task.id !== Number(event.get<string>('id', '0')))
-  }
-
-  /**
-   * Find a task or throw a 404.
-   */
-  private find (id: number): Task {
-    const task = this.tasks.find((t) => t.id === id)
-    if (task === undefined) {
-      throw new NotFoundError(`Task #${id} not found.`)
-    }
-    return task
+    this.tasks.remove(Number(event.get<string>('id', '0')))
   }
 }
